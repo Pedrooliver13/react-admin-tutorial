@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Admin, Resource } from "react-admin";
+import PostIcon from "@material-ui/icons/Book";
+import UserIcon from "@material-ui/icons/Group";
+
+import { UserList } from "pages/users";
+import { PostList, PostCreate, PostEdit } from "pages/posts";
+
+import Dashboard from "components/Dashboard";
+
+import { dataProvider } from "services/dataProvider";
+import { authProvider } from "services/authProvider";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Admin
+      dashboard={Dashboard}
+      dataProvider={dataProvider}
+      authProvider={authProvider}
+    >
+      <Resource name="users" list={UserList} icon={UserIcon} />
+      <Resource
+        name="posts"
+        list={PostList}
+        create={PostCreate}
+        edit={PostEdit}
+        icon={PostIcon}
+      />
+    </Admin>
   );
 }
 
